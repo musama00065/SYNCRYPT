@@ -1,6 +1,6 @@
 import crypto from "crypto";
 
-const ALGO = "aes-256-gcm";
+const ALGO: crypto.CipherGCMTypes = "aes-256-gcm";
 
 function deriveKey() {
   const raw = process.env.MSG_ENCRYPTION_KEY || process.env.AUTH_SECRET || "syncrypt-dev-key";
@@ -22,7 +22,8 @@ export function encryptMessage(plainText: string) {
 
 export function decryptMessage(payload: { cipherText: string; iv: string; authTag: string; algorithm?: string }) {
   try {
-    const decipher = crypto.createDecipheriv(payload.algorithm || ALGO, deriveKey(), Buffer.from(payload.iv, "base64"));
+    const algorithm: crypto.CipherGCMTypes = payload.algorithm === ALGO ? ALGO : ALGO;
+    const decipher = crypto.createDecipheriv(algorithm, deriveKey(), Buffer.from(payload.iv, "base64"));
     decipher.setAuthTag(Buffer.from(payload.authTag, "base64"));
     const plain = Buffer.concat([
       decipher.update(Buffer.from(payload.cipherText, "base64")),
