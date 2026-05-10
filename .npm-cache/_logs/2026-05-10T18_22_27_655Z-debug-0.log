@@ -1,0 +1,22 @@
+0 verbose cli C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\npm\bin\npm-cli.js
+1 info using npm@11.12.1
+2 info using node@v24.15.0
+3 silly config load:file:C:\Program Files\nodejs\node_modules\npm\npmrc
+4 silly config load:file:C:\Users\Administrator\Documents\Syncrypt\.npmrc
+5 silly config load:file:C:\Users\Administrator\.npmrc
+6 silly config load:file:C:\Users\Administrator\AppData\Roaming\npm\etc\npmrc
+7 verbose title npm exec create-next-app@latest syncrypt-app --typescript --tailwind --eslint --app --src-dir --import-alias @/* --use-npm --yes
+8 verbose argv "exec" "--" "create-next-app@latest" "syncrypt-app" "--typescript" "--tailwind" "--eslint" "--app" "--src-dir" "--import-alias" "@/*" "--use-npm" "--yes"
+9 verbose logfile logs-max:10 dir:C:\Users\Administrator\Documents\Syncrypt\.npm-cache\_logs\2026-05-10T18_22_27_655Z-
+10 verbose logfile C:\Users\Administrator\Documents\Syncrypt\.npm-cache\_logs\2026-05-10T18_22_27_655Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:4496293888 maxSize:1124073472 maxEntrySize:562036736
+13 http fetch GET 200 https://registry.npmjs.org/create-next-app 323ms (cache revalidated)
+14 silly packumentCache heap:4496293888 maxSize:1124073472 maxEntrySize:562036736
+15 silly packumentCache heap:4496293888 maxSize:1124073472 maxEntrySize:562036736
+16 verbose cwd C:\Users\Administrator\Documents\Syncrypt
+17 verbose os Windows_NT 10.0.19045
+18 verbose node v24.15.0
+19 verbose npm  v11.12.1
+20 verbose exit 0
+21 info ok

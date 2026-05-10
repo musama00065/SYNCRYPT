@@ -1,0 +1,101 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  passwordHash  String
+  name          String
+  avatarUrl     String?
+  bio           String?
+  emailOtpHash  String?
+  otpExpiresAt  DateTime?
+  otpAttempts   Int      @default(0)
+  otpLastSentAt DateTime?
+  isVerified    Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  accounts      Account[]
+  devices       Device[]
+  messages      Message[]
+  sessions      Session[]
+  securityEvents SecurityEvent[]
+}
+
+model Message {
+  id          String   @id @default(cuid())
+  senderId    String
+  recipientId String
+  cipherText  String
+  iv          String
+  authTag     String
+  algorithm   String   @default("aes-256-gcm")
+  status      String   @default("sent")
+  deliveredAt DateTime?
+  readAt      DateTime?
+  expiresAt   DateTime?
+  destroyedAt DateTime?
+  createdAt   DateTime @default(now())
+  sender      User     @relation(fields: [senderId], references: [id])
+}
+
+model Device {
+  id         String   @id @default(cuid())
+  userId     String
+  label      String
+  fingerprint String
+  trusted    Boolean  @default(false)
+  lastSeenAt DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id])
+}
+
+model SecurityEvent {
+  id        String   @id @default(cuid())
+  userId    String?
+  type      String
+  severity  String
+  ip        String?
+  meta      String?
+  createdAt DateTime @default(now())
+  user      User?    @relation(fields: [userId], references: [id])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id])
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model VerificationToken {
+  identifier String
+  token      String @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}

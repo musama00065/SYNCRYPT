@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #090d18;
+  --panel: rgba(18, 30, 51, 0.52);
+  --line: rgba(148, 163, 184, 0.2);
+  --text: #dbeafe;
+  --muted: #94a3b8;
+  --accent: #22d3ee;
+  --accent-2: #10b981;
+  --danger: #fb7185;
+  --fig-bg: #2c4253;
+  --fig-card: #9faeb7;
+  --fig-top: #031827;
+  --fig-input: #bcc3c7;
+  --fig-input-border: #7f8d97;
+  --fig-cta: #253a4b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--text);
+  background:
+    radial-gradient(900px 500px at 0% 0%, rgba(34, 211, 238, 0.18), transparent 60%),
+    radial-gradient(800px 500px at 100% 100%, rgba(16, 185, 129, 0.15), transparent 60%),
+    var(--bg);
+  font-family: var(--font-geist-sans), sans-serif;
+}
+
+.glass {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  backdrop-filter: blur(12px);
+}
+
+.figma-card {
+  background: var(--fig-card);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 28px;
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.figma-input {
+  background: var(--fig-input);
+  border: 1px solid var(--fig-input-border);
+  border-radius: 14px;
+  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.18);
+}
