@@ -1,11 +1,20 @@
 "use client";
 
+import { Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useState } from "react";
 
 export const dynamic = "force-dynamic";
 
 export default function VerifyOtpPage() {
+  return (
+    <Suspense fallback={<main className="mx-auto flex min-h-screen max-w-md items-center p-6"><div className="glass w-full rounded-2xl p-6"><p className="text-slate-300">Loading...</p></div></main>}>
+      <VerifyOtpContent />
+    </Suspense>
+  );
+}
+
+function VerifyOtpContent() {
   const params = useSearchParams();
   const router = useRouter();
   const email = params.get("email") || "";
