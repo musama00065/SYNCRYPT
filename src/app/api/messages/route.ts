@@ -95,3 +95,25 @@ export async function POST(req: NextRequest) {
 
   return NextResponse.json({ id: created.id, status: created.status, createdAt: created.createdAt });
 }
+
+export async function DELETE(req: NextRequest) {
+  const session = await auth();
+  if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  const peerId = req.nextUrl.searchParams.get("peerId");
+  if (!peerId) return NextResponse.json({ error: "Missing peerId" }, { status: 400 });
+
+  const now = new Date();
+  await prisma.message.updateMany({
+    where: {
+      destroyedAt: null,
+      OR: [
+        { senderId: session.user.id, recipientId: peerId },
+        { senderId: peerId, recipientId: session.user.id },
+      ],
+    },
+    data: { destroyedAt: now },
+  });
+
+  return NextResponse.json({ ok: true });
+}

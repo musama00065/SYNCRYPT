@@ -136,8 +136,23 @@ export function ChatWorkspace({ currentUserId, initialPeerId }: { currentUserId:
         ) : (
           <>
             <div className="mb-3 rounded-2xl border border-slate-600/45 bg-[#1f3445]/45 px-4 py-3">
-              <p className="text-xl font-semibold">Chat with {peer.name}</p>
-              <p className="text-sm text-slate-300">{peerTyping ? "Typing..." : "Secure chat active"}</p>
+              <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <p className="text-xl font-semibold">Chat with {peer.name}</p>
+                  <p className="text-sm text-slate-300">{peerTyping ? "Typing..." : "Secure chat active"}</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={async () => {
+                    if (!peerId) return;
+                    await fetch(`/api/messages?peerId=${peerId}`, { method: "DELETE" });
+                    setMessages([]);
+                  }}
+                  className="self-start rounded-full border border-rose-500/40 bg-rose-500/10 px-4 py-2 text-sm text-rose-100 transition hover:bg-rose-500/20"
+                >
+                  Clear chat
+                </button>
+              </div>
             </div>
 
             <div className="flex-1 space-y-2 overflow-auto rounded-2xl border border-slate-600/45 bg-[#1d3142]/35 p-4">

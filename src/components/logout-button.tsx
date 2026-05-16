@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
+import { LogOut } from "lucide-react";
 
 export function LogoutButton() {
   const [loading, setLoading] = useState(false);
@@ -17,10 +18,11 @@ export function LogoutButton() {
         router.push("/login");
         router.refresh();
       }}
-      className="glass rounded-full px-3 py-1.5 text-sm text-slate-300 hover:text-rose-300"
+      className="inline-flex h-10 items-center gap-2 rounded-full border border-[#1658b0] bg-[rgba(2,18,48,0.75)] px-3 sm:px-4 text-sm font-semibold text-slate-100 transition hover:border-[#2d7de5]"
       disabled={loading}
     >
-      {loading ? "Signing out..." : "Sign out"}
+      <LogOut className="h-5 w-5 text-[#4da8ff]" />
+      <span className="hidden sm:inline">{loading ? "Signing out..." : "Sign out"}</span>
     </button>
   );
 }

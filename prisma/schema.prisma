@@ -14,6 +14,12 @@ model User {
   name          String
   avatarUrl     String?
   bio           String?
+  theme         String   @default("system")
+  notifyMessages Boolean @default(true)
+  notifySecurity Boolean @default(true)
+  privacyReadReceipts Boolean @default(true)
+  privacyOnlineStatus Boolean @default(true)
+  privacyMessageRequests Boolean @default(false)
   emailOtpHash  String?
   otpExpiresAt  DateTime?
   otpAttempts   Int      @default(0)
