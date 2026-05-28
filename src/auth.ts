@@ -44,6 +44,16 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           data: { emailOtpHash: null, otpExpiresAt: null, otpAttempts: 0 },
         });
 
+        await prisma.securityEvent.create({
+          data: {
+            userId: user.id,
+            type: "user_login_success",
+            severity: "info",
+            ip: "credentials-flow",
+            meta: JSON.stringify({ email: user.email }),
+          },
+        });
+
         return { id: user.id, email: user.email, name: user.name };
       },
     }),

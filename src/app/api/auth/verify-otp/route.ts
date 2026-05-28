@@ -18,6 +18,15 @@ export async function POST(req: NextRequest) {
   const ok = await verifyOtp(parsed.data.otp, user.emailOtpHash);
   if (!ok) {
     await prisma.user.update({ where: { id: user.id }, data: { otpAttempts: { increment: 1 } } });
+    await prisma.securityEvent.create({
+      data: {
+        userId: user.id,
+        type: "invalid_otp_attempt",
+        severity: "warning",
+        ip: req.headers.get("x-forwarded-for") ?? "unknown",
+        meta: JSON.stringify({ email: user.email, attempts: user.otpAttempts + 1 }),
+      },
+    });
     return NextResponse.json({ error: "Invalid OTP" }, { status: 401 });
   }
 
@@ -28,6 +37,16 @@ export async function POST(req: NextRequest) {
       emailOtpHash: null,
       otpExpiresAt: null,
       otpAttempts: 0,
+    },
+  });
+
+  await prisma.securityEvent.create({
+    data: {
+      userId: user.id,
+      type: "user_verified",
+      severity: "info",
+      ip: req.headers.get("x-forwarded-for") ?? "unknown",
+      meta: JSON.stringify({ email: user.email }),
     },
   });
 

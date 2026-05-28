@@ -36,6 +36,16 @@ export async function POST(req: NextRequest) {
     },
   });
 
+  await prisma.securityEvent.create({
+    data: {
+      userId: user.id,
+      type: "login_otp_requested",
+      severity: "info",
+      ip: req.headers.get("x-forwarded-for") ?? "unknown",
+      meta: JSON.stringify({ email: user.email }),
+    },
+  });
+
   await sendOtpEmail(user.email, code, "login");
   return NextResponse.json({ ok: true });
 }
