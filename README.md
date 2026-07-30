@@ -8,8 +8,8 @@
 
   <br />
 
-  [![Live App](https://img.shields.io/badge/Live_App-React_+_Express_+_PostgreSQL-brightgreen?style=for-the-badge&logo=vercel)](http://localhost:3000)
-  [![Deployment](https://img.shields.io/badge/Deployed_on-Vercel_%26_Railway-purple?style=for-the-badge&logo=railway)](http://localhost:5000)
+  [![Live App](https://img.shields.io/badge/Live_App-React_+_Express_+_PostgreSQL-brightgreen?style=for-the-badge&logo=vercel)](https://syncrypt-chat.vercel.app/)
+  ![Deployment](https://img.shields.io/badge/Deployed_on-Vercel_%26_Railway-purple?style=for-the-badge&logo=railway)
 
 </div>
 
